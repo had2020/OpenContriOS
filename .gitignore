@@ -1,3 +1,4 @@
 
 bootloader/uefi.img
 /bootloader/target
+bootloader/Cargo.lock

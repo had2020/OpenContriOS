@@ -1,23 +1,15 @@
-#![no_std]
 #![no_main]
+#![no_std]
 
-use core::panic::PanicInfo;
+use core::time::Duration;
+use log::info;
+use uefi::prelude::*;
 
-#[repr(C)]
-pub struct EfiTable; // stub – define real types if you need them
-
-#[unsafe(no_mangle)]
-pub extern "efiapi" fn efi_main(_image: usize, _st: *mut EfiTable) -> usize {
-    0 // EFI_SUCCESS
+#[entry]
+fn main() -> Status {
+    uefi::helpers::init().unwrap();
+    info!("OpenContriOS Bootloader");
+    boot::stall(Duration::from_secs(10));
+    Status::SUCCESS
 }
 
-#[unsafe(no_mangle)]
-pub extern "C" fn _start() -> ! {
-    // named `_start` by default
-    loop {}
-}
-
-#[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
-    loop {}
-}
