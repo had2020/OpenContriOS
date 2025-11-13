@@ -1,19 +1,22 @@
 #![no_main]
 #![no_std]
 
+use core::ptr::NonNull;
 use core::time::Duration;
 use log::info;
-use uefi::table::system_table_raw;
 use uefi::Identify;
+use uefi::boot::OpenProtocolParams;
 use uefi::boot::exit_boot_services;
 use uefi::boot::memory_map;
 use uefi::prelude::*;
+use uefi::proto::console::gop::FrameBuffer;
+use uefi::table::system_table_raw;
 //use uefi::system USE later
 use core::{mem, ptr};
+use uefi::Handle;
 use uefi::boot;
 use uefi::proto::console::gop::GraphicsOutput;
 use uefi::proto::console::gop::ModeInfo;
-use uefi::table::boot::SearchType;
 
 #[repr(C)]
 pub struct BootInfo {
@@ -41,7 +44,26 @@ fn efi_main() -> Status {
     info!("Initiating OpenContriOS Bootloader.");
     info!("uefi::helpers::init success! UEFI (Logging, and Allocator) Now Online!");
 
-    let sys_table = system_table_raw().unwrap()
+    /*
+    unsafe {
+        boot::open_protocol(
+            OpenProtocolParams {
+                handle: Handle::new(),
+                agent: Handle::new(ptr),
+                controller: OP,
+            },
+            attributes,
+        )
+    }
+    *
+
+    
+
+    let gop: &mut GraphicsOutput = &mut GraphicsOutput;
+
+    //let sys_table = system_table_raw().unwrap();
+
+    //boot::open_protocol(params, attributes);
 
     //let gop_mode_info: ModeInfo = GraphicsOutput::current_mode_info();
     //let frame_buffer_info = GraphicsOutput::frame_buffer();
