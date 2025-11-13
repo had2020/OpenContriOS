@@ -3,6 +3,7 @@
 
 use core::time::Duration;
 use log::info;
+use uefi::table::system_table_raw;
 use uefi::Identify;
 use uefi::boot::exit_boot_services;
 use uefi::boot::memory_map;
@@ -12,6 +13,7 @@ use core::{mem, ptr};
 use uefi::boot;
 use uefi::proto::console::gop::GraphicsOutput;
 use uefi::proto::console::gop::ModeInfo;
+use uefi::table::boot::SearchType;
 
 #[repr(C)]
 pub struct BootInfo {
@@ -39,8 +41,10 @@ fn efi_main() -> Status {
     info!("Initiating OpenContriOS Bootloader.");
     info!("uefi::helpers::init success! UEFI (Logging, and Allocator) Now Online!");
 
-    let gop_mode_info: ModeInfo = GraphicsOutput::current_mode_info(&self);
-    let frame_buffer_info = GraphicsOutput::frame_buffer(&mut self);
+    let sys_table = system_table_raw().unwrap()
+
+    //let gop_mode_info: ModeInfo = GraphicsOutput::current_mode_info();
+    //let frame_buffer_info = GraphicsOutput::frame_buffer();
 
     /* TODO
     // memory map
