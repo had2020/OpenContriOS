@@ -17,6 +17,8 @@ use uefi::Handle;
 use uefi::boot;
 use uefi::proto::console::gop::GraphicsOutput;
 use uefi::proto::console::gop::ModeInfo;
+use uefi::proto::device_path::text::{AllowShortcuts, DevicePathToText, DisplayOnly};
+use uefi::proto::unsafe_protocol;
 
 #[repr(C)]
 pub struct BootInfo {
@@ -55,13 +57,14 @@ fn efi_main() -> Status {
             attributes,
         )
     }
-    *
+    */
 
-    
+    //let gop: &mut GraphicsOutput = &mut GraphicsOutput;
 
-    let gop: &mut GraphicsOutput = &mut GraphicsOutput;
-
-    //let sys_table = system_table_raw().unwrap();
+    let st = system_table_raw().unwrap().as_ptr();
+    unsafe {
+        let handle: Handle = &mut *st.stdout_handle;
+    }
 
     //boot::open_protocol(params, attributes);
 
