@@ -3,13 +3,12 @@
 
 use core::time::Duration;
 use log::info;
+use uefi::boot::exit_boot_services;
+use uefi::boot::memory_map;
 use uefi::prelude::*;
 //use uefi::system USE later
-use alloc::vec;
-use alloc::vec::Vec;
 use core::{mem, ptr};
 use uefi::boot;
-use uefi::memory::{MemoryDescriptor, MemoryType};
 use uefi::table;
 
 // BootInfo
@@ -74,11 +73,17 @@ pub enum FramebufferFormat {
 #[entry]
 fn efi_main() -> Status {
     uefi::helpers::init().unwrap();
+
     info!("Initiating OpenContriOS Bootloader.");
-    info!("Proceeding to idenfiy minimal BootInfo.");
+    info!("uefi::helpers::init success! (Logging, and Allocator) Now Online!");
+    // now we have uefi::allocator::Allocator!
 
     // memory map
+    let mem_map = memory_map();
 
-    //boot::stall(Duration::from_secs(10));
+    unsafe {
+        exit_boot_services(custom_memory_type);
+    }
+
     Status::SUCCESS
 }
