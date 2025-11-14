@@ -1,5 +1,5 @@
 [toolchain]
-targets = ["i386-unknown-none.json"]
+targets = ["x86_64-unknown-none"]
 channel = "nightly"
 components = [ "rust-src", "rust-std", "rustc", "cargo" ]
 
