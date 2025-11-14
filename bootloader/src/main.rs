@@ -62,9 +62,11 @@ fn efi_main() -> Status {
     //let gop: &mut GraphicsOutput = &mut GraphicsOutput;
 
     let st = system_table_raw().unwrap().as_ptr();
-    unsafe {
-        let handle: Handle = &mut *st.stdout_handle;
-    }
+
+    //unsafe {
+    //let stdout_handle: Handle = Handle((*st).stdout_handle);
+    //let stdin_handle: Handle = Handle::from_ptr(*st).unwrap().stdout_handle;
+    //}
 
     //boot::open_protocol(params, attributes);
 
