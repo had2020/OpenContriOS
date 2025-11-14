@@ -1,2 +1,5 @@
 [toolchain]
-targets = ["aarch64-unknown-uefi", "i686-unknown-uefi", "x86_64-unknown-uefi"]
+targets = ["i386-unknown-none.json"]
+channel = "nightly"
+components = [ "rust-src", "rust-std", "rustc", "cargo" ]
+
