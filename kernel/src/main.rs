@@ -1,14 +1,47 @@
 #![no_std]
-#![no_main]
+#![no_main] 
 
-use core::panic::PanicInfo;
+use bootloader_api::{BootInfo, entry_point};
+use core::fmt::Write;
 
-#[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
-    loop {}
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[repr(u32)]
+pub enum QemuExitCode {
+    Success = 0x10,
+    Failed = 0x11,
 }
 
-#[no_mangle]
-pub extern "C" fn kernel_main(boot_info: *const ()) -> ! {
-    loop {}
+pub fn exit_qemu(exit_code: QemuExitCode) -> ! {
+    use x86_64::instructions::{nop, port::Port};
+
+    unsafe {
+        let mut port = Port::new(0xf4);
+        port.write(exit_code as u32);
+    }
+
+    loop {
+        nop();
+    }
+}
+
+pub fn serial() -> uart_16550::SerialPort {
+    let mut port = unsafe { uart_16550::SerialPort::new(0x3F8) };
+    port.init();
+    port
+}
+
+entry_point!(kernel_main);
+
+fn kernel_main(boot_info: &'static mut BootInfo) -> ! {
+    let mut port = serial();
+    writeln!(port, "Entered kernel with boot info: {boot_info:?}").unwrap();
+    writeln!(port, "\n=(^.^)= meow\n").unwrap();
+    exit_qemu(QemuExitCode::Success);
+}
+
+#[panic_handler]
+#[cfg(not(test))]
+fn panic(info: &core::panic::PanicInfo) -> ! {
+    let _ = writeln!(serial(), "PANIC: {info}");
+    exit_qemu(QemuExitCode::Failed);
 }

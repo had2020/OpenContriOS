@@ -4,9 +4,15 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+bootloader = "0.9.7"
+bootloader_api = "0.11.12"
+uart_16550 = "0.4.0"
+x86_64 = "0.14.1"
 
-[profile.dev]
-panic = "abort" # disables stack unwinding when on panic
+[build]
+target = "x86_64-unknown-none"
+build-std = ["core", "compiler_builtins"]
 
-[profile.release]
-panic = "abort"
+[unstable]
+target = "x86_64-unknown-none"
+build-std = ["core", "compiler_builtins"]

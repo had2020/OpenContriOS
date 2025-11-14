@@ -1,1 +1,1 @@
-cargo rustc -- -C link-arg=-nostartfiles
+cargo build --target x86_64-unknown-none
