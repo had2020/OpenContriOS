@@ -1,1 +1,3 @@
-cargo +nightly build -Z bindeps
+cd kernel
+sh build.sh
+cp 

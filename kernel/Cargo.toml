@@ -1,19 +1,12 @@
 [package]
 name = "kernel"
-version = "0.1.0"
+version = "0.0.1"
 edition = "2024"
 
 [dependencies]
-bootloader = "0.9.7"
-bootloader_api = "0.11.12"
-uart_16550 = "0.4.0"
-x86_64 = "0.14.1"
 
-[build]
-target = "x86_64-unknown-none"
-build-std = ["core", "compiler_builtins"]
+[profile.dev]
+panic = "abort"
 
-[unstable]
-target = "x86_64-unknown-none"
-build-std = ["core", "compiler_builtins"]
-bindeps = true
+[profile.release]
+panic = "abort"
