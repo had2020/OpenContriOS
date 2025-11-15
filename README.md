@@ -1,4 +1,3 @@
 # OpenContriOS 🐎
- Tiny Rust Based Kernel and Bootloader
- 
- Mascott's name: Crazy Horse 
+Tiny Rust Based OS
+- Mascott's name: Crazy Horse 
