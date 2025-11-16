@@ -1,9 +1,4 @@
-
-bootloader/uefi.img
-/bootloader/target
-bootloader/Cargo.lock
-
-
-# Added by cargo
-
+/artifacts
 /target
+/kernel/target
+/kernel/target
