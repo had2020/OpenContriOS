@@ -1,1 +1,1 @@
-/home/had/Developer/github_repos/OpenContriOS/kernel/target/x86_64-unknown-none/debug/kernel: /home/had/Developer/github_repos/OpenContriOS/kernel/src/main.rs
+/home/had/Developer/github_repos/OpenContriOS/kernel/target/x86_64-unknown-none/debug/kernel: /home/had/Developer/github_repos/OpenContriOS/kernel/build.rs /home/had/Developer/github_repos/OpenContriOS/kernel/linker-x86_64.ld /home/had/Developer/github_repos/OpenContriOS/kernel/src/main.rs

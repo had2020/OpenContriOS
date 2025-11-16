@@ -1,4 +1,2 @@
 /artifacts
-/target
-/kernel/target
-/kernel/target
+*/target
