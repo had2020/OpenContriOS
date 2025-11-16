@@ -1,9 +1,6 @@
 rm -rf artifacts
 mkdir artifacts
 cd artifacts
-mkdir arm64
-mkdir riscv64
-mkdir x86_64
 
 git clone https://github.com/had2020/limine-for-OpenContriOS.git --depth=1
 cd limine-for-OpenContriOS
